@@ -97,7 +97,7 @@ body {
     flex-grow: 1;
 }
 
-.cards .completed .name {
+.cards .completed .name span {
     text-decoration: line-through;
 }
 

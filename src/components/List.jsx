@@ -17,7 +17,7 @@ function List(props) {
           <div className="cards-wrapper">
             <div className="cards">
               { props.tasks.map(task =>
-                <Task title={ task.title } completed={ task.completed } key={ task.id } />)
+                <Task id={ task.id } title={ task.title } completed={ task.completed } key={ task.id } onChange={ props.onStatusChange } onDelete={ props.onTaskDelete } />)
               }
             </div>
           </div>

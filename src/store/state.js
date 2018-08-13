@@ -30,22 +30,22 @@ const lists = [
     title: "List 2",
     tasks: [
       {
-        id: 0,
+        id: 4,
         title: "Learn English",
         completed: true
       },
       {
-        id: 1,
+        id: 5,
         title: "Learn Spanish",
         completed: false
       },
       {
-        id: 2,
+        id: 6,
         title: "Learn French",
         completed: false
       },
       {
-        id: 3,
+        id: 7,
         title: "Learn Japanies",
         completed: false
       }
@@ -56,22 +56,22 @@ const lists = [
     title: "List 3",
     tasks: [
       {
-        id: 0,
+        id: 8,
         title: "Visit to Warszaw",
         completed: true
       },
       {
-        id: 1,
+        id: 9,
         title: "Visit to Prague",
         completed: false
       },
       {
-        id: 2,
+        id: 10,
         title: "Visit to London",
         completed: false
       },
       {
-        id: 3,
+        id: 11,
         title: "Visit to New York",
         completed: false
       }
