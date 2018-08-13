@@ -1,14 +1,17 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
+
+import state from './store/state'
+import Board from './components/Board'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        TRELLO APP
-      </div>
-    );
+      <main>
+        <Board state={state} />
+      </main>
+    )
   }
 }
 
-export default App;
+export default App
