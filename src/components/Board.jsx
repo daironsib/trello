@@ -9,7 +9,7 @@ function Board(props) {
       <div className="lists-wrapper">
         <div className="lists">
           { props.data.map(list =>
-            <List title={ list.title } key={ list.id } tasks={ list.tasks } onStatusChange={ props.onStatusChange } onTaskDelete={ props.onTaskDelete } />)
+            <List id={ list.id } title={ list.title } key={ list.id } tasks={ list.tasks } onStatusChange={ props.onStatusChange } onTaskDelete={ props.onTaskDelete } onDeleteList={ props.onDeleteList } onAddTask={ props.onAddTask } />)
           }
         </div>
       </div>

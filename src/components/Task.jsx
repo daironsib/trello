@@ -3,7 +3,6 @@ import '../App.css'
 
 function Task (props) {
   const className = `item${props.completed ? ' completed' : ''}`
-  let taskEditing = false
 
   return (
     <div className={ className }>
@@ -11,7 +10,7 @@ function Task (props) {
         <input type="checkbox" onClick={ () => props.onChange(props.id) } defaultChecked={ props.completed } />
       </div>
       <div className="name">
-        { taskEditing? <input type="text" defaultValue={ props.title } /> : <span>{ props.title }</span> }
+        { props.taskEditing ? <input type="text" defaultValue={ props.title } onKeyPress={ (e) => console.log(e) } autoFocus /> : <span>{ props.title }</span> }
       </div>
       <div className="delete-list-wrapper" onClick={ () => props.onDelete(props.id) }>
         <span role="button" tabIndex="0" aria-haspopup="true" aria-expanded="false" className="delete-list-button">

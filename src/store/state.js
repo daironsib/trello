@@ -6,22 +6,26 @@ const lists = [
       {
         id: 0,
         title: "Learn JavaScript",
-        completed: true
+        completed: true,
+        taskEditing: false
       },
       {
         id: 1,
         title: "Learn React",
-        completed: false
+        completed: false,
+        taskEditing: false
       },
       {
         id: 2,
         title: "Learn Redux",
-        completed: false
+        completed: false,
+        taskEditing: false
       },
       {
         id: 3,
         title: "Develop the application",
-        completed: false
+        completed: false,
+        taskEditing: false
       }
     ]
   },
@@ -32,22 +36,26 @@ const lists = [
       {
         id: 4,
         title: "Learn English",
-        completed: true
+        completed: true,
+        taskEditing: false
       },
       {
         id: 5,
         title: "Learn Spanish",
-        completed: false
+        completed: false,
+        taskEditing: false
       },
       {
         id: 6,
         title: "Learn French",
-        completed: false
+        completed: false,
+        taskEditing: false
       },
       {
         id: 7,
         title: "Learn Japanies",
-        completed: false
+        completed: false,
+        taskEditing: false
       }
     ]
   },
@@ -58,22 +66,26 @@ const lists = [
       {
         id: 8,
         title: "Visit to Warszaw",
-        completed: true
+        completed: true,
+        taskEditing: false
       },
       {
         id: 9,
         title: "Visit to Prague",
-        completed: false
+        completed: false,
+        taskEditing: false
       },
       {
         id: 10,
         title: "Visit to London",
-        completed: false
+        completed: false,
+        taskEditing: false
       },
       {
         id: 11,
         title: "Visit to New York",
-        completed: false
+        completed: false,
+        taskEditing: false
       }
     ]
   }

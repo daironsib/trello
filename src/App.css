@@ -61,6 +61,7 @@ body {
 .list-header .delete-list-wrapper {
     width: 10%;
     text-align: center;
+    cursor: pointer;
 }
 
 .cards-wrapper {
@@ -108,6 +109,13 @@ body {
 
 .cards .item:hover .delete-list-wrapper {
     display: block;
+}
+
+.cards .item input[type='text'] {
+    height: 20px;
+    width: 200px;
+    padding: 0 5px;
+    border: none;
 }
 
 .add-card-button-wrap {
