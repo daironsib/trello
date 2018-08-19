@@ -1,6 +1,6 @@
 import React from 'react'
 import '../App.css'
-import List from './List'
+import ListContainer from '../containers/ListContainer'
 
 function Board(props) {
   const lists = props.store.getState()
@@ -11,7 +11,7 @@ function Board(props) {
       <div className="lists-wrapper">
         <div className="lists">
           { lists.map(list =>
-            <List store={ props.store } id={ list.id } title={ list.title } key={ list.id } tasks={ list.tasks } onDeleteList={ props.onDeleteList } />)
+            <ListContainer store={ props.store } id={ list.id } key={ list.id } />)
           }
         </div>
       </div>
