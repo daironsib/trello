@@ -1,12 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import List from '../components/List'
 import { addTask, changeStatusTask, deleteList, deleteTask } from '../actions'
 
 class ListContainer extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor(props, context) {
+    super(props, context)
 
-    this.store = this.props.store
+    this.store = this.context.store
 
     this.handleStatusChange = this.handleStatusChange.bind(this)
     this.handleTaskDelete = this.handleTaskDelete.bind(this)
@@ -38,11 +39,15 @@ class ListContainer extends React.Component {
         key={ this.props.id }
         onListDelete={ this.handleListDelete }
         onStatusChange={ this.handleStatusChange }
-        onTaslDelete={ this.handleTaskDelete }
+        onTaskDelete={ this.handleTaskDelete }
         onAddTask = { this.handleAddTask }
       />
     )
   }
+}
+
+ListContainer.contextTypes = {
+  store: PropTypes.object
 }
 
 export default ListContainer

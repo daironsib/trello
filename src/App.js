@@ -1,13 +1,14 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './App.css'
 
 import Board from './components/Board'
 
 class App extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor(props, context) {
+    super(props, context)
 
-    this.store = this.props.store
+    this.store = this.context.store
   }
 
   componentDidMount() {
@@ -21,10 +22,14 @@ class App extends React.Component {
   render() {
     return (
       <main>
-        <Board store={ this.store } />
+        <Board store={this.store}/>
       </main>
     )
   }
+}
+
+App.contextTypes = {
+  store: PropTypes.object
 }
 
 export default App
