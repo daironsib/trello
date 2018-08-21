@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import List from '../components/List'
-import { addTask, changeStatusTask, deleteList, deleteTask } from '../actions'
+import { addTask, deleteList } from '../actions'
 
 class ListContainer extends React.Component {
   constructor(props, context) {
@@ -9,22 +9,15 @@ class ListContainer extends React.Component {
 
     this.store = this.context.store
 
-    this.handleStatusChange = this.handleStatusChange.bind(this)
-    this.handleTaskDelete = this.handleTaskDelete.bind(this)
     this.handleAddTask = this.handleAddTask.bind(this)
     this.handleListDelete = this.handleListDelete.bind(this)
   }
 
   handleListDelete(id) {
-    this.store.dispatch(deleteList(id))
-  }
-
-  handleStatusChange(id) {
-    this.store.dispatch(changeStatusTask(id))
-  }
-
-  handleTaskDelete(id) {
-    this.store.dispatch(deleteTask(id))
+    let yes = window.confirm('Do you want to delete this list?')
+    if (yes) {
+      this.store.dispatch(deleteList(id))
+    }
   }
 
   handleAddTask(id) {
@@ -38,8 +31,6 @@ class ListContainer extends React.Component {
         id={ this.props.id }
         key={ this.props.id }
         onListDelete={ this.handleListDelete }
-        onStatusChange={ this.handleStatusChange }
-        onTaskDelete={ this.handleTaskDelete }
         onAddTask = { this.handleAddTask }
       />
     )

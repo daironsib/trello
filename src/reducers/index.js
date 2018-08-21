@@ -3,32 +3,22 @@ import { ADD_TASK, DELETE_TASK, EDIT_TASK, CHANGE_STATUS_TASK, DELETE_LIST } fro
 export default function reducer(state = [], action) {
   switch (action.type) {
     case ADD_TASK:
-      let data = state.map(list => {
-        if (list.id === action.listID) {
-          list.tasks.push(
-            {
-              completed: false,
-              id: action.id,
-              title: '',
-              taskEditing: true
-            }
-          )
-        }
-        return list
+      let data = state
+      data.tasks.push({
+        id: action.id,
+        listId: action.listID,
+        completed: false,
+        taskEditing: false,
+        title: ''
       })
-
+      console.log(data)
       return data
 
     case DELETE_TASK:
-      let deleteData = state.map(list => {
-        if (list.tasks.length !== 0) {
-          let newTasks = list.tasks.filter(task => task.id !== action.id)
-          list.tasks = newTasks
-        }
+      let deleteData = state
+      deleteData.tasks = deleteData.tasks.filter(task => task.id !== action.id)
 
-        return list
-      })
-
+      console.log(deleteData)
       return deleteData
 
     case EDIT_TASK:
@@ -36,26 +26,21 @@ export default function reducer(state = [], action) {
       return []
 
     case CHANGE_STATUS_TASK:
-      let changeData = state.map(list => {
-        if (list.tasks.length !== 0) {
-          list.tasks.forEach(task => {
-            if (task.id === action.id) {
-              task.completed = !task.completed
-            }
-          })
+      let changeData = state
+      changeData.tasks.forEach(task => {
+        if (task.id === action.id) {
+          task.completed = !task.completed
         }
-
-        return list
       })
 
+      console.log(changeData)
       return changeData
 
     case DELETE_LIST:
-      let yes = window.confirm('Do you want to delete this list?')
-      if (yes) {
-        let deleteListData = state.filter(list => list.id !== action.id)
-        return deleteListData
-      }
+      let deleteListData = state
+      deleteListData.lists = deleteListData.lists.filter(list => list.id !== action.id)
+      console.log(deleteListData)
+      return deleteListData
 
     default:
       return state

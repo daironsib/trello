@@ -7,8 +7,7 @@ class Board extends React.Component {
   constructor(props, context) {
     super(props, context)
 
-    this.store = context.store
-    this.lists = this.store.getState()
+    this.lists = context.store.getState().lists
   }
 
   render() {
@@ -18,7 +17,7 @@ class Board extends React.Component {
         <div className="lists-wrapper">
           <div className="lists">
             { this.lists.map(list =>
-              <ListContainer store={ this.store } id={ list.id } key={ list.id } />)
+              <ListContainer id={ list.id } key={ list.id } />)
             }
           </div>
         </div>
