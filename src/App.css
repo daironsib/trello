@@ -42,6 +42,7 @@ body {
     width: 300px;
     background: rgba(0,0,0,.2);
     border-radius: 6px;
+    margin-bottom: 10px;
 }
 
 .list-header {
@@ -56,6 +57,14 @@ body {
 .list-header .name {
     width: 90%;
     font-weight: bold;
+}
+
+.list-header .name span {
+    cursor: pointer;
+}
+
+.list-header .name input {
+    width: 240px;
 }
 
 .list-header .delete-list-wrapper {
@@ -139,4 +148,8 @@ body {
 
 .add-card-button:hover {
     background: rgba(0,0,0,.3);
+}
+
+.add-list-wrap {
+    padding: 90px 0 0 20px;
 }

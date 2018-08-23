@@ -3,8 +3,14 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import List from './List'
+import { addList } from '../actions'
 
 class Board extends React.Component {
+
+  handlerAddList = () => {
+    this.props.addList()
+  }
+
   render() {
     return (
       <section className="board">
@@ -14,6 +20,9 @@ class Board extends React.Component {
             { this.props.lists.map(list =>
               <List data={ list } key={ list.id } />)
             }
+          </div>
+          <div className="add-card-button-wrap add-list-wrap">
+            <button className="add-card-button" onClick={ this.handlerAddList }>+</button>
           </div>
         </div>
       </section>
@@ -27,5 +36,5 @@ Board.contextTypes = {
 
 export default connect(
   (state) => ({lists: state.lists}),
-  (dispatch) => bindActionCreators({}, dispatch))
+  (dispatch) => bindActionCreators({ addList }, dispatch))
 (Board)

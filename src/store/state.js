@@ -2,15 +2,18 @@ const initialState = {
   lists: [
     {
       id: 1,
-      title: "List 1"
+      title: "List 1",
+      listEditing: false
     },
     {
       id: 2,
-      title: "List 2"
+      title: "List 2",
+      listEditing: false
     },
     {
       id: 3,
-      title: "List 3"
+      title: "List 3",
+      listEditing: false
     }
   ],
   tasks: [

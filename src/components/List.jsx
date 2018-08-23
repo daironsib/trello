@@ -1,5 +1,5 @@
 import React from 'react'
-import { addTask, deleteList } from '../actions'
+import { addTask, deleteList, editList, saveList } from '../actions'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Task from './Task'
@@ -10,6 +10,16 @@ class List extends React.Component {
     let yes = window.confirm('Do you want to delete this list?')
     if (yes) {
       this.props.deleteList(this.props.data.id)
+    }
+  }
+
+  handleEditList = () => {
+    this.props.editList(this.props.data.id)
+  }
+
+  handleSaveList = (e) => {
+    if (e.key === 'Enter') {
+      this.props.saveList(this.props.data.id, this.refs.listValue.value)
     }
   }
 
@@ -24,7 +34,9 @@ class List extends React.Component {
       <section className="list-wrapper">
         <div className="list">
           <div className="list-header">
-            <div className="name">{data.title}</div>
+            <div className="name">
+              {data.listEditing ? <input type="text" ref='listValue' defaultValue={data.title} onKeyPress={ this.handleSaveList } autoFocus/> : <span onClick={ this.handleEditList }>{data.title}</span>}
+            </div>
             <div className="delete-list-wrapper" onClick={this.handlerListDelete}>
               <span role="button" tabIndex="0" aria-haspopup="true" aria-expanded="false"
                     className="delete-list-button">
@@ -56,5 +68,5 @@ export default connect(
       state.tasks.filter(task => task.listId === props.data.id)
     )
   }),
-  (dispatch) => bindActionCreators({deleteList, addTask}, dispatch))
+  (dispatch) => bindActionCreators({ deleteList, addTask, editList, saveList }, dispatch))
 (List)

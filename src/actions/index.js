@@ -4,6 +4,9 @@ export const EDIT_TASK = 'EDIT_TASK'
 export const SAVE_TASK = 'SAVE_TASK'
 export const CHANGE_STATUS_TASK = 'CHANGE_STATUS_TASK'
 export const DELETE_LIST = 'DELETE_LIST'
+export const ADD_LIST = 'ADD_LIST'
+export const EDIT_LIST = 'EDIT_LIST'
+export const SAVE_LIST = 'SAVE_LIST'
 
 function generate_id() {
   function s4() {
@@ -55,5 +58,26 @@ export function deleteList(id) {
   return {
     type: DELETE_LIST,
     id
+  }
+}
+
+export function addList() {
+  return {
+    type: ADD_LIST
+  }
+}
+
+export function editList(id) {
+  return {
+    type: EDIT_LIST,
+    id
+  }
+}
+
+export function saveList(id, title) {
+  return {
+    type: SAVE_LIST,
+    id,
+    title
   }
 }

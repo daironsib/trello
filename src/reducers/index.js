@@ -1,5 +1,4 @@
-import { ADD_TASK, DELETE_TASK, EDIT_TASK, SAVE_TASK, CHANGE_STATUS_TASK, DELETE_LIST } from '../actions'
-import { clone } from '../utils/clone'
+import { ADD_TASK, DELETE_TASK, EDIT_TASK, SAVE_TASK, CHANGE_STATUS_TASK, DELETE_LIST, ADD_LIST, EDIT_LIST, SAVE_LIST } from '../actions'
 
 export default function reducer (state = {}, action) {
   switch (action.type) {
@@ -17,45 +16,108 @@ export default function reducer (state = {}, action) {
 
       return {...state, tasks}
     case DELETE_TASK:
-      state.tasks = state.tasks.filter(task => task.id !== action.id)
+      const deleteIndex = state.tasks.findIndex(task => task.id === action.id)
 
-      return {...state}
+      return {
+        lists: state.lists,
+        tasks: [
+          ...state.tasks.slice(0, deleteIndex),
+          ...state.tasks.slice(deleteIndex + 1)
+        ]
+      }
+
     case EDIT_TASK:
-      const newStateEditTask = clone(state)
+      const editedTasks = state.tasks.map(task => {
+          if (task.id !== action.id) {
+            return task
+          }
 
-      newStateEditTask.tasks.forEach(task => {
-        if (task.id === action.id) {
-          task.taskEditing = true
-        }
-      })
+          return Object.assign({}, task, {
+            taskEditing: true
+          })
+        })
 
-      return newStateEditTask
+      return {...state, tasks: [...editedTasks]}
 
     case SAVE_TASK:
-
-      const newStateSaveTask = clone(state)
-
-      newStateSaveTask.tasks.forEach(task => {
-        if (task.id === action.id) {
-          task.title = action.title
-          task.taskEditing = false
+      const saveTasks = state.tasks.map(task => {
+        if (task.id !== action.id) {
+          return task
         }
+
+        return Object.assign({}, task, {
+          title: action.title,
+          taskEditing: false
+        })
       })
 
-      return newStateSaveTask
+      return {...state, tasks: [...saveTasks]}
 
     case CHANGE_STATUS_TASK:
-      state.tasks.forEach(task => {
-        if (task.id === action.id) {
-          task.completed = !task.completed
+      const changeStatusTasks = state.tasks.map(task => {
+        if (task.id !== action.id) {
+          return task
         }
+
+        return Object.assign({}, task, {
+          completed: !task.completed
+        })
       })
 
-      return {...state}
-    case DELETE_LIST:
-      state.lists = state.lists.filter(list => list.id !== action.id)
+      return {...state, tasks: [...changeStatusTasks]}
 
-      return {...state}
+    case DELETE_LIST:
+      const deleteListIndex = state.lists.findIndex(list => list.id === action.id)
+
+      return {
+        lists: [
+          ...state.lists.slice(0, deleteListIndex),
+          ...state.lists.slice(deleteListIndex + 1)
+        ],
+        tasks: state.tasks
+      }
+
+    case ADD_LIST:
+      const lists = [
+        ...state.lists,
+        {
+          id: state.lists.length + 1,
+          title: '',
+          listEditing: true
+        }
+      ]
+
+      return {...state, lists}
+
+    case EDIT_LIST:
+
+      const editedLists = state.lists.map(list => {
+        if (list.id !== action.id) {
+          return list
+        }
+
+        return Object.assign({}, list, {
+          listEditing: true
+        })
+      })
+
+      return {...state, lists: [...editedLists]}
+
+    case SAVE_LIST:
+
+      const saveLists = state.lists.map(list => {
+        if (list.id !== action.id) {
+          return list
+        }
+
+        return Object.assign({}, list, {
+          title: action.title,
+          listEditing: false
+        })
+      })
+
+      return {...state, lists: [...saveLists]}
+
     default:
       return state
   }
