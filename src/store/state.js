@@ -13,11 +13,6 @@ const initialState = {
       title: "List 3"
     }
   ],
-  t : {
-    1: [
-
-    ]
-  },
   tasks: [
     {
       id: 1,

@@ -1,4 +1,5 @@
-import { ADD_TASK, DELETE_TASK, EDIT_TASK, CHANGE_STATUS_TASK, DELETE_LIST } from '../actions'
+import { ADD_TASK, DELETE_TASK, EDIT_TASK, SAVE_TASK, CHANGE_STATUS_TASK, DELETE_LIST } from '../actions'
+import { clone } from '../utils/clone'
 
 export default function reducer (state = {}, action) {
   switch (action.type) {
@@ -20,8 +21,28 @@ export default function reducer (state = {}, action) {
 
       return {...state}
     case EDIT_TASK:
+      const newStateEditTask = clone(state)
 
-      return []
+      newStateEditTask.tasks.forEach(task => {
+        if (task.id === action.id) {
+          task.taskEditing = true
+        }
+      })
+
+      return newStateEditTask
+
+    case SAVE_TASK:
+
+      const newStateSaveTask = clone(state)
+
+      newStateSaveTask.tasks.forEach(task => {
+        if (task.id === action.id) {
+          task.title = action.title
+          task.taskEditing = false
+        }
+      })
+
+      return newStateSaveTask
 
     case CHANGE_STATUS_TASK:
       state.tasks.forEach(task => {

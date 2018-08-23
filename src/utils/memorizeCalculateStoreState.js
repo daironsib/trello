@@ -9,9 +9,9 @@ export function memorizeCalculateStoreState (key, object) {
     return object
   }
 
-  console.time(`Comporator executing time`)
+  //console.time(`Comporator executing time`)
   const result = objectComparator(object, store[key])
-  console.timeEnd(`Comporator executing time`)
+  //console.timeEnd(`Comporator executing time`)
 
   if (!result) {
     store[key] = object

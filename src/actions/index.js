@@ -1,6 +1,7 @@
 export const ADD_TASK = 'ADD_TASK'
 export const DELETE_TASK = 'DELETE_TASK'
 export const EDIT_TASK = 'EDIT_TASK'
+export const SAVE_TASK = 'SAVE_TASK'
 export const CHANGE_STATUS_TASK = 'CHANGE_STATUS_TASK'
 export const DELETE_LIST = 'DELETE_LIST'
 
@@ -28,11 +29,18 @@ export function deleteTask(id) {
   }
 }
 
-export function editTask(id, title) {
+export function saveTask(id, title) {
   return {
-    type: EDIT_TASK,
+    type: SAVE_TASK,
     id,
     title
+  }
+}
+
+export function editTask(id) {
+  return {
+    type: EDIT_TASK,
+    id
   }
 }
 
