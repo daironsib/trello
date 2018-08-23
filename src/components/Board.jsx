@@ -6,7 +6,6 @@ import List from './List'
 
 class Board extends React.Component {
   render() {
-    console.log(`boarder render`)
     return (
       <section className="board">
         <h1>Trello Main Board</h1>

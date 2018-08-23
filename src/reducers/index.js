@@ -9,7 +9,7 @@ export default function reducer (state = {}, action) {
           id: action.id,
           listId: action.listID,
           completed: false,
-          taskEditing: false,
+          taskEditing: true,
           title: ''
         }
       ]

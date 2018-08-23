@@ -19,7 +19,6 @@ class Task extends React.Component {
   render () {
     const {data} = this.props
     const className = `item${this.props.completed ? ' completed' : ''}`
-    console.log(`render task`)
 
     return (
       <div className={className}>
@@ -27,8 +26,7 @@ class Task extends React.Component {
           <input type="checkbox" onClick={this.handleStatusChange} defaultChecked={data.completed}/>
         </div>
         <div className="name">
-          {this.props.taskEditing ? <input type="text" defaultValue={data.title} onKeyPress={(e) => console.log(e)}
-                                           autoFocus/> : <span>{data.title}</span>}
+          {data.taskEditing ? <input type="text" defaultValue={data.title} onKeyPress={(e) => console.log(e)} autoFocus/> : <span>{data.title}</span>}
         </div>
         <div className="delete-list-wrapper" onClick={this.handleTaskDelete}>
         <span role="button" tabIndex="0" aria-haspopup="true" aria-expanded="false" className="delete-list-button">

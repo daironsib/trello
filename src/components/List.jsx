@@ -19,7 +19,6 @@ class List extends React.Component {
 
   render () {
     const {data, tasks} = this.props
-    console.log(`render list`)
 
     return (
       <section className="list-wrapper">
