@@ -1,62 +1,40 @@
 import { ADD_TASK, DELETE_TASK, EDIT_TASK, CHANGE_STATUS_TASK, DELETE_LIST } from '../actions'
 
-export default function reducer(state = [], action) {
+export default function reducer (state = {}, action) {
   switch (action.type) {
     case ADD_TASK:
-      let data = state.map(list => {
-        if (list.id === action.listID) {
-          list.tasks.push(
-            {
-              completed: false,
-              id: action.id,
-              title: '',
-              taskEditing: true
-            }
-          )
+      const tasks = [
+        ...state.tasks,
+        {
+          id: action.id,
+          listId: action.listID,
+          completed: false,
+          taskEditing: false,
+          title: ''
         }
-        return list
-      })
+      ]
 
-      return data
-
+      return {...state, tasks}
     case DELETE_TASK:
-      let deleteData = state.map(list => {
-        if (list.tasks.length !== 0) {
-          let newTasks = list.tasks.filter(task => task.id !== action.id)
-          list.tasks = newTasks
-        }
+      state.tasks = state.tasks.filter(task => task.id !== action.id)
 
-        return list
-      })
-
-      return deleteData
-
+      return {...state}
     case EDIT_TASK:
 
       return []
 
     case CHANGE_STATUS_TASK:
-      let changeData = state.map(list => {
-        if (list.tasks.length !== 0) {
-          list.tasks.forEach(task => {
-            if (task.id === action.id) {
-              task.completed = !task.completed
-            }
-          })
+      state.tasks.forEach(task => {
+        if (task.id === action.id) {
+          task.completed = !task.completed
         }
-
-        return list
       })
 
-      return changeData
-
+      return {...state}
     case DELETE_LIST:
-      let yes = window.confirm('Do you want to delete this list?')
-      if (yes) {
-        let deleteListData = state.filter(list => list.id !== action.id)
-        return deleteListData
-      }
+      state.lists = state.lists.filter(list => list.id !== action.id)
 
+      return {...state}
     default:
       return state
   }

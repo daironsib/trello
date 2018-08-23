@@ -1,94 +1,109 @@
-const lists = [
-  {
-    id: 0,
-    title: "List 1",
-    tasks: [
-      {
-        id: 0,
-        title: "Learn JavaScript",
-        completed: true,
-        taskEditing: false
-      },
-      {
-        id: 1,
-        title: "Learn React",
-        completed: false,
-        taskEditing: false
-      },
-      {
-        id: 2,
-        title: "Learn Redux",
-        completed: false,
-        taskEditing: false
-      },
-      {
-        id: 3,
-        title: "Develop the application",
-        completed: false,
-        taskEditing: false
-      }
-    ]
-  },
-  {
-    id: 1,
-    title: "List 2",
-    tasks: [
-      {
-        id: 4,
-        title: "Learn English",
-        completed: true,
-        taskEditing: false
-      },
-      {
-        id: 5,
-        title: "Learn Spanish",
-        completed: false,
-        taskEditing: false
-      },
-      {
-        id: 6,
-        title: "Learn French",
-        completed: false,
-        taskEditing: false
-      },
-      {
-        id: 7,
-        title: "Learn Japanies",
-        completed: false,
-        taskEditing: false
-      }
-    ]
-  },
-  {
-    id: 2,
-    title: "List 3",
-    tasks: [
-      {
-        id: 8,
-        title: "Visit to Warszaw",
-        completed: true,
-        taskEditing: false
-      },
-      {
-        id: 9,
-        title: "Visit to Prague",
-        completed: false,
-        taskEditing: false
-      },
-      {
-        id: 10,
-        title: "Visit to London",
-        completed: false,
-        taskEditing: false
-      },
-      {
-        id: 11,
-        title: "Visit to New York",
-        completed: false,
-        taskEditing: false
-      }
-    ]
-  }
-]
+const initialState = {
+  lists: [
+    {
+      id: 1,
+      title: "List 1"
+    },
+    {
+      id: 2,
+      title: "List 2"
+    },
+    {
+      id: 3,
+      title: "List 3"
+    }
+  ],
+  t : {
+    1: [
 
-export default lists
+    ]
+  },
+  tasks: [
+    {
+      id: 1,
+      listId: 1,
+      title: "Learn JavaScript",
+      completed: true,
+      taskEditing: false
+    },
+    {
+      id: 2,
+      listId: 1,
+      title: "Learn React",
+      completed: false,
+      taskEditing: false
+    },
+    {
+      id: 3,
+      listId: 1,
+      title: "Learn Redux",
+      completed: false,
+      taskEditing: false
+    },
+    {
+      id: 4,
+      listId: 1,
+      title: "Develop the application",
+      completed: false,
+      taskEditing: false
+    },
+    {
+      id: 5,
+      listId: 2,
+      title: "Learn English",
+      completed: true,
+      taskEditing: false
+    },
+    {
+      id: 6,
+      listId: 2,
+      title: "Learn Spanish",
+      completed: false,
+      taskEditing: false
+    },
+    {
+      id: 7,
+      listId: 2,
+      title: "Learn French",
+      completed: false,
+      taskEditing: false
+    },
+    {
+      id: 8,
+      listId: 2,
+      title: "Learn Japanies",
+      completed: false,
+      taskEditing: false
+    },
+    {
+      id: 9,
+      listId: 3,
+      title: "Visit to Warszaw",
+      completed: true,
+      taskEditing: false
+    },
+    {
+      id: 10,
+      listId: 3,
+      title: "Visit to Prague",
+      completed: false,
+      taskEditing: false
+    },
+    {
+      id: 11,
+      listId: 3,
+      title: "Visit to London",
+      completed: false,
+      taskEditing: false
+    },
+    {
+      id: 12,
+      listId: 3,
+      title: "Visit to New York",
+      completed: false,
+      taskEditing: false
+    }
+  ]
+}
+
+export default initialState
