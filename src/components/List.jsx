@@ -68,5 +68,4 @@ export default connect(
       state.tasks.filter(task => task.listId === props.data.id)
     )
   }),
-  (dispatch) => bindActionCreators({ deleteList, addTask, editList, saveList }, dispatch))
-(List)
+  (dispatch) => bindActionCreators({ deleteList, addTask, editList, saveList }, dispatch))(List)

@@ -1,7 +1,10 @@
-import { ADD_TASK, DELETE_TASK, EDIT_TASK, SAVE_TASK, CHANGE_STATUS_TASK, DELETE_LIST, ADD_LIST, EDIT_LIST, SAVE_LIST } from '../actions'
+import { GET_DATA, ADD_TASK, DELETE_TASK, EDIT_TASK, SAVE_TASK, CHANGE_STATUS_TASK, DELETE_LIST, ADD_LIST, EDIT_LIST, SAVE_LIST } from '../actions'
 
 export default function reducer (state = {}, action) {
   switch (action.type) {
+    case GET_DATA:
+      return action.data
+
     case ADD_TASK:
       const tasks = [
         ...state.tasks,

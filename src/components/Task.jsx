@@ -48,5 +48,4 @@ class Task extends React.Component {
 
 export default connect(
   (state) => ({}),
-  (dispatch) => bindActionCreators({deleteTask, changeStatusTask, saveTask, editTask}, dispatch))
-(Task)
+  (dispatch) => bindActionCreators({deleteTask, changeStatusTask, saveTask, editTask}, dispatch))(Task)

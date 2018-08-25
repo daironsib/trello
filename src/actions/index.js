@@ -1,3 +1,6 @@
+import axios from 'axios'
+
+export const GET_DATA = 'GET_DATA'
 export const ADD_TASK = 'ADD_TASK'
 export const DELETE_TASK = 'DELETE_TASK'
 export const EDIT_TASK = 'EDIT_TASK'
@@ -15,6 +18,15 @@ function generate_id() {
       .substring(1);
   }
   return s4() + s4() + s4();
+}
+
+export function getData() {
+  return axios.get('http://localhost:5000/api/trello')
+    .then(response => response.data)
+    .then(data => ({
+      type: GET_DATA,
+      data
+    }))
 }
 
 export function addTask(id) {

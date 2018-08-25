@@ -4,6 +4,9 @@ import { Provider } from 'react-redux'
 
 import store from './store'
 import App from './App'
+import { getData } from './actions'
+
+store.dispatch(getData())
 
 ReactDOM.render(
   <Provider store={store}>

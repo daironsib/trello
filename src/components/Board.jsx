@@ -36,5 +36,4 @@ Board.contextTypes = {
 
 export default connect(
   (state) => ({lists: state.lists}),
-  (dispatch) => bindActionCreators({ addList }, dispatch))
-(Board)
+  (dispatch) => bindActionCreators({ addList }, dispatch))(Board)
