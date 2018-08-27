@@ -8,13 +8,7 @@ export default function reducer (state = {}, action) {
     case ADD_TASK:
       const tasks = [
         ...state.tasks,
-        {
-          id: action.id,
-          listId: action.listID,
-          completed: false,
-          taskEditing: true,
-          title: ''
-        }
+        action.task
       ]
 
       return {...state, tasks}
@@ -93,7 +87,6 @@ export default function reducer (state = {}, action) {
       return {...state, lists}
 
     case EDIT_LIST:
-
       const editedLists = state.lists.map(list => {
         if (list.id !== action.id) {
           return list
@@ -107,7 +100,6 @@ export default function reducer (state = {}, action) {
       return {...state, lists: [...editedLists]}
 
     case SAVE_LIST:
-
       const saveLists = state.lists.map(list => {
         if (list.id !== action.id) {
           return list

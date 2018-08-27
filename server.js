@@ -1,73 +1,169 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-const express = require('express');
-const bodyParser = require('body-parser');
+const fs = require('fs')
+const path = require('path')
+const express = require('express')
+const bodyParser = require('body-parser')
 
-const trelloData = require('./api/state');
+const trelloData = require('./api/state')
 
-const app = express();
+const app = express()
 
-let nextId = 5;
+function generate_id() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + s4();
+}
 
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || 5000))
 
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use((req, res, next) => {
-  res.setHeader('Cache-Control', 'no-cache');
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+  res.header("Access-Control-Allow-Origin", "*")
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, PATCH")
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization")
+  next()
+})
 
+// GET ALL DATA
 app.get('/api/trello', (req, res) => {
   res.send(trelloData);
-});
+})
 
-app.post('/api/trello', (req, res) => {
-  const todo = {
-    id: nextId++,
-    title: req.body.title,
-    completed: false
+// ADD NEW TASK
+app.post('/api/trello/task', (req, res) => {
+  const task = {
+    id: generate_id(),
+    listId: req.body.listId,
+    completed: false,
+    taskEditing: true,
+    title: ''
   };
 
-  todos.push(todo);
+  trelloData.tasks.push(task)
+  res.send(task)
+})
 
-  res.send(todo);
-});
+// EDIT TASK
+app.put('/api/trello/task/edit/:id', (req, res) => {
+  const editedTasks = trelloData.tasks.map(task => {
+    if (task.id !== Number(req.params.id)) {
+      return task
+    }
 
-app.put('/api/todos/:id', (req, res) => {
-  const todo = todos.find(todo => todo.id == req.params.id);
+    return Object.assign({}, task, {
+      taskEditing: true
+    })
+  })
 
-  if (!todo) return res.sendStatus(404);
+  trelloData.tasks = [...editedTasks]
 
-  todo.title = req.body.title || todo.title;
+  res.sendStatus(204)
+})
 
-  res.json(todo);
-});
+// SAVE TASK
+app.put('/api/trello/task/save/:id', (req, res) => {
+  const saveTasks = trelloData.tasks.map(task => {
+    if (task.id !== Number(req.params.id)) {
+      return task
+    }
 
-app.patch('/api/todos/:id', (req, res) => {
-  const todo = todos.find(todo => todo.id == req.params.id);
+    return Object.assign({}, task, {
+      title: req.body.title,
+      taskEditing: false
+    })
+  })
 
-  if (!todo) return res.sendStatus(404);
+  trelloData.tasks = [...saveTasks]
 
-  todo.completed = !todo.completed;
+  res.sendStatus(204)
+})
 
-  res.json(todo);
-});
+// CHANGE STATUS TASK
+app.put('/api/trello/task/complete/:id', (req, res) => {
 
-app.delete('/api/todos/:id', (req, res) => {
-  const index = todos.findIndex(todo => todo.id == req.params.id);
+  const task = trelloData.tasks.find(task => task.id == req.params.id)
 
-  if (index === -1) return res.sendStatus(404);
+  if (!task) return res.sendStatus(404)
 
-  todos.splice(index, 1);
+  task.completed = !task.completed
 
-  res.sendStatus(204);
-});
+  res.json(task)
+})
 
-app.listen(app.get('port'), () => console.log(`Server is listening: http://localhost:${app.get('port')}`));
+// DELETE TASK
+app.delete('/api/trello/task/:id', (req, res) => {
+  const index = trelloData.tasks.findIndex(task => task.id === Number(req.params.id))
+
+  if (index === -1) return res.sendStatus(404)
+
+  trelloData.tasks.splice(index, 1)
+
+  res.sendStatus(204)
+})
+
+// DELETE LIST
+app.delete('/api/trello/list/:id', (req, res) => {
+  const index = trelloData.lists.findIndex(list => list.id === Number(req.params.id))
+
+  if (index === -1) return res.sendStatus(404)
+
+  trelloData.lists.splice(index, 1)
+
+  res.sendStatus(204)
+})
+
+// ADD NEW LIST
+app.post('/api/trello/list', (req, res) => {
+  const list = {
+    id: trelloData.lists.length + 1,
+    title: '',
+    listEditing: true
+  }
+
+  trelloData.lists.push(list)
+  res.send(list)
+})
+
+// EDIT LIST
+app.put('/api/trello/list/edit/:id', (req, res) => {
+  const editedLists = trelloData.lists.map(list => {
+    if (list.id !== req.params.id) {
+      return list
+    }
+
+    return Object.assign({}, list, {
+      listEditing: true
+    })
+  })
+
+  trelloData.lists = [...editedLists]
+
+  res.sendStatus(204)
+})
+
+// SAVE LIST
+app.put('/api/trello/list/save/:id', (req, res) => {
+  const saveLists = trelloData.lists.map(list => {
+    if (list.id !== req.params.id) {
+      return list
+    }
+
+    return Object.assign({}, list, {
+      title: req.body.title,
+      listEditing: false
+    })
+  })
+
+  trelloData.lists = [...saveLists]
+
+  res.sendStatus(204)
+})
+
+app.listen(app.get('port'), () => console.log(`Server is listening: http://localhost:${app.get('port')}`))

@@ -11,15 +11,6 @@ export const ADD_LIST = 'ADD_LIST'
 export const EDIT_LIST = 'EDIT_LIST'
 export const SAVE_LIST = 'SAVE_LIST'
 
-function generate_id() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-  }
-  return s4() + s4() + s4();
-}
-
 export function getData() {
   return axios.get('http://localhost:5000/api/trello')
     .then(response => response.data)
@@ -29,67 +20,78 @@ export function getData() {
     }))
 }
 
-export function addTask(id) {
-  return {
-    type: ADD_TASK,
-    id: generate_id(),
-    listID: id
-  }
+export function addTask(listId) {
+  return axios.post('http://localhost:5000/api/trello/task', { listId })
+    .then(response => response.data)
+    .then(task => ({
+      type: ADD_TASK,
+      task
+    }))
 }
 
 export function deleteTask(id) {
-  return {
-    type: DELETE_TASK,
-    id
-  }
+  return axios.delete(`http://localhost:5000/api/trello/task/${id}`)
+    .then(response =>({
+      type: DELETE_TASK,
+      id
+    }))
 }
 
 export function saveTask(id, title) {
-  return {
-    type: SAVE_TASK,
-    id,
-    title
-  }
+  return axios.put(`http://localhost:5000/api/trello/task/save/${id}`, { title })
+    .then(response => ({
+      type: SAVE_TASK,
+      id,
+      title
+    }))
 }
 
 export function editTask(id) {
-  return {
-    type: EDIT_TASK,
-    id
-  }
+  return axios.put(`http://localhost:5000/api/trello/task/edit/${id}`)
+    .then(response => ({
+      type: EDIT_TASK,
+      id
+    }))
 }
 
 export function changeStatusTask(id) {
-  return {
-    type: CHANGE_STATUS_TASK,
-    id
-  }
+  return axios.put(`http://localhost:5000/api/trello/task/complete/${id}`)
+    .then(response => ({
+      type: CHANGE_STATUS_TASK,
+      id
+    }))
 }
 
 export function deleteList(id) {
-  return {
-    type: DELETE_LIST,
-    id
-  }
+  return axios.delete(`http://localhost:5000/api/trello/list/${id}`)
+    .then(response =>({
+      type: DELETE_LIST,
+      id
+    }))
 }
 
 export function addList() {
-  return {
-    type: ADD_LIST
-  }
+  return axios.post('http://localhost:5000/api/trello/list')
+    .then(response => response.data)
+    .then(list => ({
+      type: ADD_LIST,
+      list
+    }))
 }
 
 export function editList(id) {
-  return {
-    type: EDIT_LIST,
-    id
-  }
+  return axios.put(`http://localhost:5000/api/trello/list/edit/${id}`)
+    .then(response => ({
+      type: EDIT_LIST,
+      id
+    }))
 }
 
 export function saveList(id, title) {
-  return {
-    type: SAVE_LIST,
-    id,
-    title
-  }
+  return axios.put(`http://localhost:5000/api/trello/list/save/${id}`)
+    .then(response => ({
+      type: SAVE_LIST,
+      id,
+      title
+    }))
 }
