@@ -44,7 +44,7 @@ app.post('/api/trello/task', (req, res) => {
     completed: false,
     taskEditing: true,
     title: ''
-  };
+  }
 
   trelloData.tasks.push(task)
   res.send(task)

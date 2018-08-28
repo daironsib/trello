@@ -12,13 +12,13 @@ class Board extends React.Component {
   }
 
   render() {
+
     return (
       <section className="board">
         <h1>Trello Main Board</h1>
         <div className="lists-wrapper">
           <div className="lists">
-            { this.props.lists.map(list =>
-              <List data={ list } key={ list.id } />)
+            { this.props.lists !== undefined ? this.props.lists.map(list => <List data={ list } key={ list.id } />) : null
             }
           </div>
           <div className="add-card-button-wrap add-list-wrap">
