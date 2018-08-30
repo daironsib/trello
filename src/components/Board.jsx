@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import List from './List'
@@ -12,13 +11,19 @@ class Board extends React.Component {
   }
 
   render() {
+    let board = { title: '' }
+
+    if (this.props.board[0] !== undefined) {
+      board = this.props.board[0]
+    }
 
     return (
       <section className="board">
-        <h1>Trello Main Board</h1>
+        <h1>{ board.title }</h1>
         <div className="lists-wrapper">
           <div className="lists">
-            { this.props.lists !== undefined ? this.props.lists.map(list => <List data={ list } key={ list.id } />) : null
+            {
+              this.props.lists !== undefined ? this.props.lists.map(list => <List data={ list } key={ list.id } />) : null
             }
           </div>
           <div className="add-card-button-wrap add-list-wrap">
@@ -30,10 +35,10 @@ class Board extends React.Component {
   }
 }
 
-Board.contextTypes = {
-  store: PropTypes.object
-}
-
 export default connect(
-  (state) => ({lists: state.lists}),
+  (state, match) => (
+    {
+      board: state.boards.filter(board => board.id === Number(match.match.params.id)),
+      lists: state.lists.filter(list => list.boardId === Number(match.match.params.id))
+    }),
   (dispatch) => bindActionCreators({ addList }, dispatch))(Board)

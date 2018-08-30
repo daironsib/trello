@@ -151,3 +151,25 @@ body {
 .add-list-wrap {
     padding: 90px 0 0 20px;
 }
+
+.boards-cont {
+    display: flex;
+    margin: 0 -10px;
+}
+
+.boards-cont a {
+    text-decoration: none;
+    color: #000;
+}
+
+.boards-cont .board-item {
+    width: 300px;
+    background: rgba(0,0,0,.2);
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    padding: 30px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+}
