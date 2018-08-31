@@ -124,7 +124,8 @@ app.post('/api/trello/list', (req, res) => {
   const list = {
     id: trelloData.lists.length + 1,
     title: '',
-    listEditing: true
+    listEditing: true,
+    boardId: req.body.boardId
   }
 
   trelloData.lists.push(list)
@@ -162,6 +163,64 @@ app.put('/api/trello/list/save/:id', (req, res) => {
   })
 
   trelloData.lists = [...saveLists]
+
+  res.sendStatus(204)
+})
+
+// ADD NEW BOARD
+app.post('/api/trello/board', (req, res) => {
+  const board = {
+    id: trelloData.boards.length + 1,
+    title: `New Board ${trelloData.boards.length + 1}`,
+    boardEditing: false
+  }
+
+  trelloData.boards.push(board)
+  res.send(board)
+})
+
+// EDIT BOARD
+app.put('/api/trello/board/edit/:id', (req, res) => {
+  const editedBoards = trelloData.boards.map(board => {
+    if (board.id !== req.params.id) {
+      return board
+    }
+
+    return Object.assign({}, board, {
+      listEditing: true
+    })
+  })
+
+  trelloData.boards = [...editedBoards]
+
+  res.sendStatus(204)
+})
+
+// SAVE BOARD
+app.put('/api/trello/board/save/:id', (req, res) => {
+  const saveBoards = trelloData.boards.map(board => {
+    if (board.id !== req.params.id) {
+      return board
+    }
+
+    return Object.assign({}, board, {
+      title: req.body.title,
+      listEditing: false
+    })
+  })
+
+  trelloData.boards = [...saveBoards]
+
+  res.sendStatus(204)
+})
+
+// DELETE BOARD
+app.delete('/api/trello/board/:id', (req, res) => {
+  const index = trelloData.boards.findIndex(board => board.id === Number(req.params.id))
+
+  if (index === -1) return res.sendStatus(404)
+
+  trelloData.boards.splice(index, 1)
 
   res.sendStatus(204)
 })

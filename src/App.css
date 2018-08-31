@@ -173,3 +173,34 @@ body {
     margin: 0 10px;
     cursor: pointer;
 }
+
+.boards-cont .board-item input {
+    width: 100%;
+}
+
+.add-board-wrap {
+    padding: 15px 0 0 20px;
+}
+
+.board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.board-header a {
+    color: #333;
+}
+
+.board-header-right {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.board-header-right .delete-board-btn {
+    text-decoration: underline;
+    cursor: pointer;
+}

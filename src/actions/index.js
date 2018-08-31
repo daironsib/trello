@@ -1,6 +1,10 @@
 import { request } from '../utils/request'
 
 export const GET_DATA = 'GET_DATA'
+export const ADD_BOARD = 'ADD_BOARD'
+export const DELETE_BOARD = 'DELETE_BOARD'
+export const EDIT_BOARD = 'EDIT_BOARD'
+export const SAVE_BOARD = 'SAVE_BOARD'
 export const ADD_TASK = 'ADD_TASK'
 export const DELETE_TASK = 'DELETE_TASK'
 export const EDIT_TASK = 'EDIT_TASK'
@@ -18,6 +22,49 @@ export function getData() {
       .then(data => dispatch({
         type: GET_DATA,
         data
+      }))
+  }
+}
+
+export function addBoard() {
+  return (dispatch) => {
+    request('POST', `api/trello/board`)
+      .then(response => response.json())
+      .then(board => dispatch({
+        type: ADD_BOARD,
+        board
+      }))
+  }
+}
+
+export function editBoard(id) {
+  return (dispatch) => {
+    request('PUT', `api/trello/board/edit/${id}`)
+      .then(() => dispatch({
+        type: EDIT_BOARD,
+        id
+      }))
+  }
+}
+
+export function saveBoard(id, title) {
+  return (dispatch) => {
+    request('PUT', `api/trello/board/save/${id}`, { title })
+      .then(() => dispatch({
+        type: SAVE_BOARD,
+        id,
+        title
+      }))
+  }
+}
+
+export function deleteBoard(id, redirect) {
+  redirect()
+  return (dispatch) => {
+    request('DELETE', `api/trello/board/${id}`)
+      .then(() => dispatch({
+        type: DELETE_BOARD,
+        id
       }))
   }
 }
@@ -84,9 +131,9 @@ export function deleteList(id) {
   }
 }
 
-export function addList() {
+export function addList(boardId) {
   return (dispatch) => {
-    request('POST', `api/trello/list`)
+    request('POST', `api/trello/list`, { boardId })
       .then(response => response.json())
       .then(list => dispatch({
         type: ADD_LIST,
