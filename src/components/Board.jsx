@@ -24,12 +24,12 @@ class Board extends React.Component {
   handleDeleteBoard = () => {
     let yes = window.confirm('Do you want to delete this board?')
     if (yes) {
-      //this.props.deleteBoard(this.props.board[0].id)
       this.props.deleteBoard(this.props.board[0].id, () => this.props.history.push('/'))
     }
   }
 
   render() {
+
     let board = { id: '', title: '' }
 
     if (this.props.board[0] !== undefined) {

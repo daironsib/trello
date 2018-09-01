@@ -15,17 +15,6 @@ export const ADD_LIST = 'ADD_LIST'
 export const EDIT_LIST = 'EDIT_LIST'
 export const SAVE_LIST = 'SAVE_LIST'
 
-export function getData() {
-  return (dispatch) => {
-    request('GET', `api/trello`)
-      .then(response => response.json())
-      .then(data => dispatch({
-        type: GET_DATA,
-        data
-      }))
-  }
-}
-
 export function addBoard() {
   return (dispatch) => {
     request('POST', `api/trello/board`)
