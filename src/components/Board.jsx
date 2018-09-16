@@ -28,9 +28,9 @@ class Board extends React.Component {
     }
   }
 
-  render() {
+  render () {
 
-    let board = { id: '', title: '' }
+    let board = {id: '', title: ''}
 
     if (this.props.board[0] !== undefined) {
       board = this.props.board[0]
@@ -41,20 +41,22 @@ class Board extends React.Component {
         <div className="board-header">
           <div className="board-header-left">
             <Link to="/">Back to Home Page</Link>
-            <h1>{board.boardEditing ? <input type="text" ref='boardValue' defaultValue={board.title} onKeyPress={ this.handleSaveBoard } autoFocus/> : <span onClick={ this.handleEditBoard }>{board.title}</span>}</h1>
+            <h1>{board.boardEditing ? <input type="text" ref='boardValue' defaultValue={board.title}
+                                             onKeyPress={this.handleSaveBoard} autoFocus/> : <span
+              onClick={this.handleEditBoard}>{board.title}</span>}</h1>
           </div>
           <div className="board-header-right">
-            <span className="delete-board-btn" onClick={ this.handleDeleteBoard }>Delele Board</span>
+            <span className="delete-board-btn" onClick={this.handleDeleteBoard}>Delele Board</span>
           </div>
         </div>
         <div className="lists-wrapper">
           <div className="lists">
             {
-              this.props.lists !== undefined ? this.props.lists.map(list => <List data={ list } key={ list.id } />) : null
+              this.props.lists !== undefined ? this.props.lists.map(list => <List data={list} key={list.id}/>) : null
             }
           </div>
           <div className="add-card-button-wrap add-list-wrap">
-            <button className="add-card-button" onClick={ this.handlerAddList }>+</button>
+            <button className="add-card-button" onClick={this.handlerAddList}>+</button>
           </div>
         </div>
       </section>
@@ -68,4 +70,4 @@ export default connect(
       board: state.boards.filter(board => board.id === Number(match.match.params.id)),
       lists: state.lists.filter(list => list.boardId === Number(match.match.params.id))
     }),
-  (dispatch) => bindActionCreators({ addList, editBoard, saveBoard, deleteBoard }, dispatch))(Board)
+  (dispatch) => bindActionCreators({addList, editBoard, saveBoard, deleteBoard}, dispatch))(Board)

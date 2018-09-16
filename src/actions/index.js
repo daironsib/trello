@@ -15,7 +15,7 @@ export const ADD_LIST = 'ADD_LIST'
 export const EDIT_LIST = 'EDIT_LIST'
 export const SAVE_LIST = 'SAVE_LIST'
 
-export function addBoard() {
+export function addBoard () {
   return (dispatch) => {
     request('POST', `api/trello/board`)
       .then(response => response.json())
@@ -26,7 +26,7 @@ export function addBoard() {
   }
 }
 
-export function editBoard(id) {
+export function editBoard (id) {
   return (dispatch) => {
     request('PUT', `api/trello/board/edit/${id}`)
       .then(() => dispatch({
@@ -36,9 +36,9 @@ export function editBoard(id) {
   }
 }
 
-export function saveBoard(id, title) {
+export function saveBoard (id, title) {
   return (dispatch) => {
-    request('PUT', `api/trello/board/save/${id}`, { title })
+    request('PUT', `api/trello/board/save/${id}`, {title})
       .then(() => dispatch({
         type: SAVE_BOARD,
         id,
@@ -47,7 +47,7 @@ export function saveBoard(id, title) {
   }
 }
 
-export function deleteBoard(id, redirect) {
+export function deleteBoard (id, redirect) {
   redirect()
   return (dispatch) => {
     request('DELETE', `api/trello/board/${id}`)
@@ -58,9 +58,9 @@ export function deleteBoard(id, redirect) {
   }
 }
 
-export function addTask(listId) {
+export function addTask (listId) {
   return (dispatch) => {
-    request('POST', `api/trello/task`, { listId })
+    request('POST', `api/trello/task`, {listId})
       .then(response => response.json())
       .then(task => dispatch({
         type: ADD_TASK,
@@ -69,7 +69,7 @@ export function addTask(listId) {
   }
 }
 
-export function deleteTask(id) {
+export function deleteTask (id) {
   return (dispatch) => {
     request('DELETE', `api/trello/task/${id}`)
       .then(() => dispatch({
@@ -79,9 +79,9 @@ export function deleteTask(id) {
   }
 }
 
-export function saveTask(id, title) {
+export function saveTask (id, title) {
   return (dispatch) => {
-    request('PUT', `api/trello/task/save/${id}`, { title })
+    request('PUT', `api/trello/task/save/${id}`, {title})
       .then(() => dispatch({
         type: SAVE_TASK,
         id,
@@ -90,7 +90,7 @@ export function saveTask(id, title) {
   }
 }
 
-export function editTask(id) {
+export function editTask (id) {
   return (dispatch) => {
     request('PUT', `api/trello/task/edit/${id}`)
       .then(() => dispatch({
@@ -100,7 +100,7 @@ export function editTask(id) {
   }
 }
 
-export function changeStatusTask(id) {
+export function changeStatusTask (id) {
   return (dispatch) => {
     request('PUT', `api/trello/task/complete/${id}`)
       .then(() => dispatch({
@@ -110,7 +110,7 @@ export function changeStatusTask(id) {
   }
 }
 
-export function deleteList(id) {
+export function deleteList (id) {
   return (dispatch) => {
     request('DELETE', `api/trello/list/${id}`)
       .then(() => dispatch({
@@ -120,9 +120,9 @@ export function deleteList(id) {
   }
 }
 
-export function addList(boardId) {
+export function addList (boardId) {
   return (dispatch) => {
-    request('POST', `api/trello/list`, { boardId })
+    request('POST', `api/trello/list`, {boardId})
       .then(response => response.json())
       .then(list => dispatch({
         type: ADD_LIST,
@@ -131,7 +131,7 @@ export function addList(boardId) {
   }
 }
 
-export function editList(id) {
+export function editList (id) {
   return (dispatch) => {
     request('PUT', `api/trello/list/edit/${id}`)
       .then(() => dispatch({
@@ -141,9 +141,9 @@ export function editList(id) {
   }
 }
 
-export function saveList(id, title) {
+export function saveList (id, title) {
   return (dispatch) => {
-    request('PUT', `api/trello/list/save/${id}`, { title })
+    request('PUT', `api/trello/list/save/${id}`, {title})
       .then(() => dispatch({
         type: SAVE_LIST,
         id,
