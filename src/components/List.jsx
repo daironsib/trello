@@ -6,24 +6,34 @@ import Task from './Task'
 import { memorizeCalculateStoreState } from '../utils/memorizeCalculateStoreState'
 
 class List extends React.Component {
-  handlerListDelete = () => {
+
+  constructor (props) {
+    super(props)
+
+    this.handlerListDelete = this.handlerListDelete.bind(this)
+    this.handleEditList = this.handleEditList.bind(this)
+    this.handleSaveList = this.handleSaveList.bind(this)
+    this.handlerAddTask = this.handlerAddTask.bind(this)
+  }
+
+  handlerListDelete () {
     let yes = window.confirm('Do you want to delete this list?')
     if (yes) {
       this.props.deleteList(this.props.data.id)
     }
   }
 
-  handleEditList = () => {
+  handleEditList () {
     this.props.editList(this.props.data.id)
   }
 
-  handleSaveList = (e) => {
+  handleSaveList (e) {
     if (e.key === 'Enter') {
       this.props.saveList(this.props.data.id, this.refs.listValue.value)
     }
   }
 
-  handlerAddTask = () => {
+  handlerAddTask () {
     this.props.addTask(this.props.data.id)
   }
 
@@ -35,7 +45,9 @@ class List extends React.Component {
         <div className="list">
           <div className="list-header">
             <div className="name">
-              {data.listEditing ? <input type="text" ref='listValue' defaultValue={data.title} onKeyPress={ this.handleSaveList } autoFocus/> : <span onClick={ this.handleEditList }>{data.title}</span>}
+              {data.listEditing ? <input type="text" ref='listValue' defaultValue={data.title}
+                                         onKeyPress={this.handleSaveList} autoFocus/> : <span
+                onClick={this.handleEditList}>{data.title}</span>}
             </div>
             <div className="delete-list-wrapper" onClick={this.handlerListDelete}>
               <span role="button" tabIndex="0" aria-haspopup="true" aria-expanded="false"
@@ -68,4 +80,4 @@ export default connect(
       state.tasks.filter(task => task.listId === props.data.id)
     )
   }),
-  (dispatch) => bindActionCreators({ deleteList, addTask, editList, saveList }, dispatch))(List)
+  (dispatch) => bindActionCreators({deleteList, addTask, editList, saveList}, dispatch))(List)

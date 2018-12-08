@@ -5,19 +5,28 @@ import { bindActionCreators } from 'redux'
 
 class Task extends React.Component {
 
-  handleStatusChange = () => {
+  constructor (props) {
+    super(props)
+
+    this.handleStatusChange = this.handleStatusChange.bind(this)
+    this.handleTaskDelete = this.handleTaskDelete.bind(this)
+    this.handleEditTask = this.handleEditTask.bind(this)
+    this.handleSaveTask = this.handleSaveTask.bind(this)
+  }
+
+  handleStatusChange () {
     this.props.changeStatusTask(this.props.data.id)
   }
 
-  handleTaskDelete = () => {
+  handleTaskDelete () {
     this.props.deleteTask(this.props.data.id)
   }
 
-  handleEditTask = () => {
+  handleEditTask () {
     this.props.editTask(this.props.data.id)
   }
 
-  handleSaveTask = (e) => {
+  handleSaveTask (e) {
     if (e.key === 'Enter') {
       this.props.saveTask(this.props.data.id, this.refs.taskValue.value)
     }
@@ -33,7 +42,9 @@ class Task extends React.Component {
           <input type="checkbox" onClick={this.handleStatusChange} defaultChecked={data.completed}/>
         </div>
         <div className="name">
-          {data.taskEditing ? <input type="text" ref='taskValue' defaultValue={data.title} onKeyPress={ this.handleSaveTask } autoFocus/> : <span onClick={ this.handleEditTask }>{data.title}</span>}
+          {data.taskEditing ? <input type="text" ref='taskValue' defaultValue={data.title}
+                                     onKeyPress={this.handleSaveTask} autoFocus/> : <span
+            onClick={this.handleEditTask}>{data.title}</span>}
         </div>
         <div className="delete-list-wrapper" onClick={this.handleTaskDelete}>
         <span role="button" tabIndex="0" aria-haspopup="true" aria-expanded="false" className="delete-list-button">

@@ -2,7 +2,8 @@
   "env": {
     "test": {
       "presets": [
-        ["env", { "modules": "commonjs" }]
+        "react",
+        "es2015"
       ],
       "plugins": ["transform-object-rest-spread"]
     }

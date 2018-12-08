@@ -7,21 +7,30 @@ import { addList, editBoard, saveBoard, deleteBoard } from '../actions'
 
 class Board extends React.Component {
 
-  handlerAddList = () => {
+  constructor (props) {
+    super(props)
+
+    this.handlerAddList = this.handlerAddList.bind(this)
+    this.handleEditBoard = this.handleEditBoard.bind(this)
+    this.handleSaveBoard = this.handleSaveBoard.bind(this)
+    this.handleDeleteBoard = this.handleDeleteBoard.bind(this)
+  }
+
+  handlerAddList () {
     this.props.addList(this.props.board[0].id)
   }
 
-  handleEditBoard = () => {
+  handleEditBoard () {
     this.props.editBoard(this.props.board[0].id)
   }
 
-  handleSaveBoard = (e) => {
+  handleSaveBoard (e) {
     if (e.key === 'Enter') {
       this.props.saveBoard(this.props.board[0].id, this.refs.boardValue.value)
     }
   }
 
-  handleDeleteBoard = () => {
+  handleDeleteBoard () {
     let yes = window.confirm('Do you want to delete this board?')
     if (yes) {
       this.props.deleteBoard(this.props.board[0].id, () => this.props.history.push('/'))
@@ -29,7 +38,6 @@ class Board extends React.Component {
   }
 
   render () {
-
     let board = {id: '', title: ''}
 
     if (this.props.board[0] !== undefined) {

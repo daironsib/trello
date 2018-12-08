@@ -6,7 +6,13 @@ import { addBoard, saveBoard } from '../actions'
 
 class BoardsMenu extends React.Component {
 
-  handlerAddBoard = () => {
+  constructor (props) {
+    super(props)
+
+    this.handlerAddBoard = this.handlerAddBoard.bind(this)
+  }
+
+  handlerAddBoard() {
     this.props.addBoard()
   }
 
